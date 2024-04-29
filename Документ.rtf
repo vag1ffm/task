@@ -1,0 +1,223 @@
+{\rtf1\ansi\ansicpg1251\deff0\nouicompat\deflang1049{\fonttbl{\f0\fnil\fcharset204 Segoe UI;}{\f1\fnil\fcharset0 Segoe UI;}{\f2\fnil\fcharset0 Calibri;}{\f3\fnil\fcharset2 Symbol;}}
+{\colortbl ;\red36\green41\blue47;\red255\green255\blue255;}
+{\*\generator Riched20 10.0.19041}\viewkind4\uc1 
+\pard\sb360\sa240\sl240\slmult1\qc\cf1\highlight2\b\f0\fs40\'c7\'e0\'e4\'e0\'f7\'e8 \'ed\'e0 \'ee\'e1\'f9\'e8\'e9 \'f3\'f0\'ee\'e2\'e5\'ed\'fc \'e2\'eb\'e0\'e4\'e5\'ed\'e8\'ff \'ff\'e7\'fb\'ea\'ee\'ec\par
+
+\pard\sl240\slmult1\tx720\f1\fs24\lang1033\tab\f0\lang1049\'d4\'e8\'eb\'fc\'f2\'f0\'e0\'f6\'e8\'ff \'f3\'ed\'e8\'ea\'e0\'eb\'fc\'ed\'fb\'f5 \'e7\'e0\'ef\'e8\'f1\'e5\'e9\b0 :\par
+\par
+\b\f1\lang1033 php:\f0\lang1049\par
+\b0\par
+
+\pard\box\brdrdash\brdrw0 \sl240\slmult1\cf0\highlight0\lang1033 function get_unique($arr): array \{\line     $array_ids = [];\line     return array_filter($arr, function ($item) use (&$array_ids) \{\line         if (!in_array($item['id'], $array_ids)) \{\line             $array_ids[] = $item['id'];\line             return true;\line         \}\line         return false;\line     \});\line\}\line print_r(get_unique($array));\par
+\par
+
+\pard\sl240\slmult1\tx720\cf1\highlight2\b\f1 javascript:\par
+
+\pard\sl240\slmult1\qj\tx720\highlight0\b0\par
+
+\pard\box\brdrdash\brdrw0 \sl240\slmult1\qj\cf0\f0\lang1049 function get_unique(arr) \{\line     let array_ids = []\line     return arr.filter(value => \{\line         if (!array_ids.includes(value.id)) \{\line             array_ids.push(value.id)\line             return value;\line         \}\line     \});\line\}\line\i console\i0 .log(get_unique(\i array\i0 ));\par
+
+\pard\sl240\slmult1\qj\tx720\cf1\f1\lang1033\par
+
+\pard\sl240\slmult1\tx720\highlight2\b python:\par
+\b0\par
+\f0\lang1049 unique_ids = []\par
+def get_unique(dictionary):\par
+  \f1\lang1033   \f0\lang1049 dict_id = dictionary.get("id")\par
+  \f1\lang1033   \f0\lang1049 if dict_id not in unique_ids:\par
+    \f1\lang1033     \f0\lang1049 unique_ids.append(dict_id)\par
+    \f1\lang1033     \f0\lang1049 return dictionary\par
+unique_dicts = list(filter(lambda x: x is not None, map(get_unique, array)))\par
+
+\pard\sl240\slmult1\tx720 pprint(unique_dicts)\line\f1\lang1033\par
+\f0\lang1049\par
+\par
+\line\f1\lang1033\tab\b\f0\lang1049\'d1\'ee\'f0\'f2\'e8\'f0\'ee\'e2\'ea\'e0 \'ec\'ed\'ee\'e3\'ee\'ec\'e5\'f0\'ed\'ee\'e3\'ee \'ec\'e0\'f1\'f1\'e8\'e2\'e0:\par
+\par
+
+\pard\sl240\slmult1\tx720\f1\lang1033 php:\f0\lang1049\par
+\b0\par
+usort($array, function ($a, $b) \{\par
+    return strtotime($a['create']) - strtotime($b['create']);\par
+\});\par
+\par
+print_r($array);\par
+\par
+\b\f1\lang1033 javascript:\par
+\b0\par
+
+\pard\box\brdrdash\brdrw0 \sl240\slmult1\cf0\highlight0\f0\lang1049 function sort_array(arr) \{\line     return arr.sort((a, b) => \{\line         return \f1\lang1033 new Date(a.create) - new Date(b.create)\f0\lang1049\line     \});\line\}\line\i console\i0 .log(2, sort_array(\i array\i0 ))\par
+
+\pard\sl240\slmult1\tx720\cf1\highlight2\f1\lang1033\par
+\b python:\par
+\b0\par
+
+\pard\sl240\slmult1\tx720 sorted_dicts = sorted(array, key=lambda x: datetime.strptime(x.get("create"), "%d.%m.%Y"))\par
+pprint(sorted_dicts)\par
+\f0\lang1049\par
+
+\pard\sl240\slmult1\tx720\f1\lang1033\tab\b\f0\lang1049\'d4\'e8\'eb\'fc\'f2\'f0\'e0\'f6\'e8\'ff \'ef\'ee \'f3\'f1\'eb\'ee\'e2\'e8\'ff\'ec:\b0\line\b\f1\lang1033 php:\f0\lang1049\par
+
+\pard\box\brdrdash\brdrw0 \sl240\slmult1\cf0\highlight0\b0 function filter_arr($value) \{\line     return $value['id'] > 2;\line\}\line print_r(array_filter($array, 'filter_arr'))\line\cf1\highlight2\par
+
+\pard\sl240\slmult1\tx720\f1\lang1033\par
+\b javascript:\par
+\b0\par
+
+\pard\box\brdrdash\brdrw0 \sl240\slmult1\cf0\highlight0\f0\lang1049 function filter_array(arr) \{\line     return arr.filter(value => \{\line         return value.id >2\line     \})\line\}\line\i console\i0 .log(filter_array(\i array\i0 ))\par
+
+\pard\sl240\slmult1\tx720\cf1\highlight2\f1\lang1033\par
+\b python:\par
+
+\pard\sl240\slmult1\tx720\b0\f0\lang1049 def filter_array(arr):\par
+    return list(filter(lambda value: value["id"] > 2, arr))\par
+print(filter_array(array))\par
+\par
+\f1\lang1033\tab\b\f0\lang1049\'c8\'e7\'ec\'e5\'ed\'e5\'ed\'e8\'e5 c\'f2\'f0\'f3\'ea\'f2\'f3\'f0\'fb \'ec\'e0\'f1\'f1\'e8\'e2\'e0:\par
+\par
+
+\pard\sl240\slmult1\tx720\f1\lang1033 php:\f0\lang1049\par
+\b0\par
+\f1\lang1033 function change_dict($dictionary) \{\par
+    $title = \f0\lang1049  \f1\lang1033 $dictionary["title"];\par
+    $dict_id = $dictionary["id"];\par
+    return [$title => $dict_id];\par
+\}\par
+\par
+$changed_dict\f0\lang1049   \f1\lang1033 = array_map('change_dict', $array);\par
+\par
+print_r($changed_dict);\par
+\par
+
+\pard\sl240\slmult1\tx720\b javascript:\par
+\par
+\cf0\highlight0\b0\f0 function changeDict(dictionary) \{\par
+  const title = dictionary["title"];\par
+  const dictId = dictionary["id"];\par
+  return \{ [title]: dictId \};\par
+\}\par
+\par
+const changedDict = array.map(changeDict);\par
+console.log(changedDict);\par
+\cf1\highlight2\f1\par
+\b python:\par
+\par
+\b0 def change_dict(dictionary):\par
+  title = dictionary.get("title")\par
+  dict_id = dictionary.get("id")\par
+  return \{title: dict_id\}\par
+changed_dict = list(map(change_dict, array))\par
+pprint(changed_dict)\par
+\f0\lang1049\line\par
+
+\pard\sb360\sa240\sl240\slmult1\qc\b\fs40\'c7\'e0\'e4\'e0\'f7\'e8 \'ed\'e0 \'f3\'f0\'ee\'e2\'e5\'ed\'fc \'e2\'eb\'e0\'e4\'e5\'ed\'e8\'ff SQL\par
+
+\pard\sa240\sl240\slmult1\f1\fs24\lang1033 SQL-\f0\lang1049\'e7\'e0\'ef\'f0\'ee\'f1 \'e1\'e5\'e7 \'e8\'f1\'ef\'ee\'eb\'fc\'e7\'ee\'e2\'e0\'ed\'e8\'ff JOIN \'e8 \'ef\'ee\'e4\'e7\'e0\'ef\'f0\'ee\'f1\'ee\'e2:\line\b0\i\f1\lang1033 SELECT "department_id" FROM "evaluations"  WHERE gender = true AND value >5\f0\lang1049\par
+
+\pard\sl240\slmult1\tx720\b\i0\'ce\'ef\'f2\'e8\'ec\'e8\'e7\'e0\'f6\'e8\'ff \'ef\'ee\'e8\'f1\'ea\'e0 \'ef\'ee \'e1\'e8\'ee\'e3\'f0\'e0\'f4\'e8\'e8\b0 :\line\'cc\'ee\'e9 \'ef\'ee\'e4\'f5\'ee\'e4 \'e1\'f3\'e4\'e5\'f2 \'ee\'f1\'ed\'ee\'e2\'fb\'e2\'e0\'f2\'fc\'f1\'ff \'ed\'e0 \'e8\'f1\'ef\'ee\'eb\'fc\'e7\'ee\'e2\'e0\'ed\'e8\'e8 \'ef\'ee\'eb\'ed\'ee\'f2\'e5\'ea\'f1\'f2\'ee\'e2\'ee\'e3\'ee \'ef\'ee\'e8\'f1\'ea\'e0.\par
+\'d1\'ed\'e0\'f7\'e0\'eb\'e0 \'e4\'ee\'e1\'e0\'e2\'e8\'ec \'f1\'f2\'ee\'eb\'e1\'e5\'f6 \f1\lang1033 bio_tokens \f0\lang1049\'f2\'e8\'ef\'e0 \f1\lang1033 tsvector\f0\lang1049 :\f1\lang1033\par
+\par
+
+\pard\li720\sl240\slmult1\tx720\i ALTER TABLE evaluations ADD COLUMN bio_tokens TSVECTOR;\par
+
+\pard\sl240\slmult1\tx720\par
+\i0\f0\lang1049\'cf\'ee\'f1\'eb\'e5 \'f7\'e5\'e3\'ee \'ee\'e1\'ed\'ee\'e2\'e8\'ec \'e4\'e0\'ed\'ed\'fb\'e5 \'ed\'e0 \'f1\'f2\'ee\'eb\'e1\'f6\'e5 \f1\lang1033 bio_tokens\f0\lang1049 :\par
+\f1\lang1033\par
+
+\pard\li720\sl240\slmult1\tx720\i UPDATE evaluations SET bio_tokens = to_tsvector('english', bio);\par
+\par
+
+\pard\sl240\slmult1\tx720\i0 to_tsvector \f0\lang1049\'e1\'f3\'e4\'e5\'f2 \'ef\'f0\'e5\'ee\'e1\'f0\'e0\'e7\'ee\'e2\'fb\'e2\'e0\'f2\'fc \'f2\'e5\'ea\'f1\'f2 \'e8\'e7 \'f1\'f2\'ee\'eb\'e1\'f6\'e0 bio \'e2 \'f4\'ee\'f0\'ec\'e0\'f2 TSVECTOR \'ed\'e0 \'e0\'ed\'e3\'eb\'e8\'e9\'f1\'ea\'ee\'ec \'ff\'e7\'fb\'ea\'e5. \'c0 \'e1\'eb\'e0\'e3\'ee\'e4\'e0\'f0\'ff \'f4\'ee\'f0\'ec\'e0\'f2\'f3 \f1\lang1033 tsvector \f0\lang1049\'f3 \'ed\'e0\'f1 \'ef\'ee\'e8\'f1\'ea \'e1\'f3\'e4\'e5\'f2 \'ef\'f0\'ee\'e8\'f1\'f5\'ee\'e4\'e8\'f2\'fc \'e1\'fb\'f1\'f2\'f0\'e5\'e5.\par
+
+\pard\sl240\slmult1\tx720\'cf\'ee\'f1\'eb\'e5 \'ec\'fb \'f1\'ee\'e7\'e4\'e0\'b8\'ec \'e8\'ed\'e4\'e5\'ea\'f1 \f1\lang1033 bio_idx \f0\lang1049\'ed\'e0 \'f1\'f2\'ee\'eb\'e1\'f6\'e5 \f1\lang1033 bio_tokens \f0\lang1049\'f1 \'e8\'f1\'ef\'ee\'eb\'fc\'e7\'ee\'e2\'e0\'ed\'e8\'e5\'ec \f1\lang1033 GIN,\f0\lang1049  \'ea\'ee\'f2\'ee\'f0\'e0\'ff \'e1\'f3\'e4\'e5\'f2 \'fd\'f4\'f4\'e5\'ea\'f2\'e8\'e2\'ed\'ee \'ef\'ee\'e4\'e4\'e5\'f0\'e6\'e8\'e2\'e0\'f2\'fc \'ef\'ee\'eb\'ed\'ee\'f2\'e5\'ea\'f1\'f2\'ee\'e2\'fb\'e9 \'ef\'ee\'e8\'f1\'ea \'e8 \'ee\'e1\'e5\'f1\'ef\'e5\'f7\'e8\'e2\'e0\'f2\'fc \'e1\'fb\'f1\'f2\'f0\'fb\'e9 \'e4\'ee\'f1\'f2\'f3\'ef \'ea \'e4\'e0\'ed\'ed\'fb\'ec \'ef\'f0\'e8 \'e2\'fb\'ef\'ee\'eb\'ed\'e5\'ed\'e8\'e8 \'e7\'e0\'ef\'f0\'ee\'f1\'ee\'e2:\par
+\f1\lang1033\par
+
+\pard\li720\sl240\slmult1\tx720\i CREATE INDEX bio_idx ON evaluations USING GIN(bio_tokens); \par
+
+\pard\sl240\slmult1\tx720\par
+\i0\f0\lang1049\'cf\'ee\'f1\'eb\'e5 \'f1\'ee\'e7\'e4\'e0\'ed\'e8\'ff \'e8\'ed\'e4\'e5\'ea\'f1\'e0 \'ec\'fb \'e1\'f3\'e4\'e5\'ec \'e2\'fb\'ef\'ee\'eb\'ed\'e8\'f2\'fc \'ef\'ee\'eb\'ed\'ee\'f2\'e5\'ea\'f1\'f2\'ee\'e2\'fb\'e9 \'ef\'ee\'e8\'f1\'ea, \'e8\'f1\'ef\'ee\'eb\'fc\'e7\'f3\'ff \'ee\'ef\'e5\'f0\'e0\'f2\'ee\'f0 @@ \'e4\'eb\'ff \'f1\'ee\'ef\'ee\'f1\'f2\'e0\'e2\'eb\'e5\'ed\'e8\'ff TSVECTOR-\'e7\'ed\'e0\'f7\'e5\'ed\'e8\'e9 \'f1 TSQUERY, \'f1\'ee\'e7\'e4\'e0\'ed\'ed\'fb\'ec \'f1 \'ef\'ee\'ec\'ee\'f9\'fc\'fe \'f4\'f3\'ed\'ea\'f6\'e8\'e8 to_tsquery('english', 'search_term'):\par
+\i\f1\lang1033\par
+
+\pard\li720\sl240\slmult1\tx720\f0\lang1049 SELECT * FROM evaluations WHERE bio_tokens @@ to_tsquery('english', 'search_term');\par
+\par
+
+\pard\sl240\slmult1\tx720\i0\'dd\'f2\'ee\'f2 \'e7\'e0\'ef\'f0\'ee\'f1 \'e2\'ee\'e7\'e2\'f0\'e0\'f9\'e0\'e5\'f2 \'e2\'f1\'e5 \'f1\'f2\'f0\'ee\'ea\'e8, \'e3\'e4\'e5 \'f2\'e5\'ea\'f1\'f2 \'e2 \'f1\'f2\'ee\'eb\'e1\'f6\'e5 bio_tokens \'f1\'ee\'ee\'f2\'e2\'e5\'f2\'f1\'f2\'e2\'f3\'e5\'f2 \'ef\'ee\'e8\'f1\'ea\'ee\'e2\'ee\'ec\'f3 \'e7\'e0\'ef\'f0\'ee\'f1\'f3 'search_term' \'ed\'e0 \'e0\'ed\'e3\'eb\'e8\'e9\'f1\'ea\'ee\'ec \'ff\'e7\'fb\'ea\'e5.\par
+\par
+\'cf\'ee\'eb\'ed\'fb\'e9 \'ea\'ee\'e4:\par
+\par
+
+\pard\li720\sl240\slmult1\tx720\i ALTER TABLE evaluations ADD COLUMN bio_tokens TSVECTOR;\par
+UPDATE evaluations SET bio_tokens = to_tsvector('english', bio);\par
+CREATE INDEX bio_idx ON evaluations USING GIN(bio_tokens);\par
+SELECT * FROM evaluations WHERE bio_tokens @@ to_tsquery('english', 'search_term');\par
+
+\pard\sl240\slmult1\tx720\i0\par
+\par
+
+\pard\sb360\sa240\sl240\slmult1\qc\b\fs40\'c0\'f0\'f5\'e8\'f2\'e5\'ea\'f2\'f3\'f0\'ed\'fb\'e5 \'e7\'e0\'e4\'e0\'f7\'e8\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent360{\pntxtb\'B7}}\fi-360\li720\sa240\sl240\slmult1\fs24\'cf\'f0\'e8\'ec\'e5\'ed\'e5\'ed\'e8\'e5 \'ef\'f0\'e8\'ed\'f6\'e8\'ef\'e0 \'ee\'f2\'ea\'f0\'fb\'f2\'ee\'f1\'f2\'e8-\'e7\'e0\'ea\'f0\'fb\'f2\'ee\'f1\'f2\'e8:\b0\par
+
+\pard\sl240\slmult1\tx720\'cf\'f0\'e8\'ed\'f6\'e8\'ef\'e0 \'ee\'f2\'ea\'f0\'fb\'f2\'ee\'f1\'f2\'e8-\'e7\'e0\'ea\'f0\'fb\'f2\'ee\'f1\'f2\'e8: \'ea\'eb\'e0\'f1\'f1 \'e4\'ee\'eb\'e6\'e5\'ed \'e1\'fb\'f2\'fc \'ee\'f2\'ea\'f0\'fb\'f2 \'e4\'eb\'ff \'f0\'e0\'f1\'f8\'e8\'f0\'e5\'ed\'e8\'ff, \'ed\'ee \'e7\'e0\'ea\'f0\'fb\'f2 \'e4\'eb\'ff \'ec\'ee\'e4\'e8\'f4\'e8\'ea\'e0\'f6\'e8\'e8\par
+\par
+class SomeObject \{\par
+    protected $name;\par
+    public function __construct(string $name) \{\par
+        $this->name = $name;\par
+    \}\par
+    public function getObjectName(): string\par
+    \{\par
+        return $this->name;\par
+    \}\par
+\}\par
+\par
+class SomeObjectsHandler \{\par
+    public function __construct() \{ \}\par
+    public function handleObjects(array $objects): array \{\par
+        $handlers = [];\par
+        foreach ($objects as $object) \{\par
+            $handlers[] =  $object->getObjectName();\par
+        \}\par
+        return $handlers;\par
+    \}\par
+\}\par
+\par
+$object_1 = new SomeObject('object_1');\par
+$object_2 = new SomeObject('object_2');\par
+\par
+\par
+$soh = new SomeObjectsHandler();\par
+$soh->handleObjects([$object_1, $object_2]);\par
+\par
+\par
+\b\'d3\'f1\'f2\'f0\'e0\'ed\'e5\'ed\'e8\'e5 \'ed\'e0\'f0\'f3\'f8\'e5\'ed\'e8\'e9 \'ef\'f0\'e8\'ed\'f6\'e8\'ef\'e0 \'e8\'ed\'e2\'e5\'f0\'f1\'e8\'e8 \'e7\'e0\'e2\'e8\'f1\'e8\'ec\'ee\'f1\'f2\'e5\'e9:\fs30\line\b0\fs24\par
+\'ca\'eb\'e0\'f1\'f1\'fb \'e2\'fb\'f1\'f8\'e5\'e3\'ee \'f3\'f0\'ee\'e2\'ed\'ff \'ed\'e5 \'e4\'ee\'eb\'e6\'ed\'fb \'e7\'e0\'e2\'e8\'f1\'e5\'f2\'fc \'ee\'f2 \'ea\'eb\'e0\'f1\'f1\'ee\'e2 \'ed\'e8\'e7\'ea\'ee\'e3\'ee \'f3\'f0\'ee\'e2\'ed\'ff. \'ce\'ed\'e8 \'e4\'ee\'eb\'e6\'e4\'fb \'e7\'e0\'e2\'e8\'f1\'e5\'f2\'fc \'ee\'f2 \'e0\'e1\'f1\'f2\'f0\'e0\'ea\'f6\'e8\'ff. \'c0 \'e0\'e1\'f1\'f2\'f0\'e0\'f6\'e8\'e8 \'e2 \'f1\'e2\'ee\'fe \'ee\'f7\'e5\'f0\'e5\'e4\'fc \'ed\'e5 \'e4\'ee\'eb\'e6\'ed\'fb \'e7\'e0\'e2\'e8\'f1\'e5\'f2\'fc \'ee\'f2 \'e4\'e5\'f2\'e0\'eb\'e5\'e9. \'e0 \'e4\'e5\'f2\'e0\'eb\'e8 \'e4\'ee\'eb\'e6\'ed\'fb \'e7\'e0\'e2\'e8\'f1\'e8\'f2\'fc \'ee\'f2 \'e0\'e1\'f1\'f2\'f0\'e0\'f6\'e8\'e8\par
+\par
+\par
+interface XMLHTTPServiceInterface \{\par
+    public function request() ;\par
+\}\par
+class XMLHTTPRequestService implements XMLHTTPServiceInterface \{\par
+    public function request()\{ \}\par
+\}\par
+\par
+class XMLHttpService implements XMLHTTPServiceInterface \{\par
+    public function request()\{ \}\par
+\}\par
+class Http \{\par
+    private $service;\par
+    public function __construct(XMLHTTPServiceInterface $xmlHttpService) \{\par
+        $this->service = $xmlHttpService;\par
+    \}\par
+    public function get(string $url, array $options) \{\par
+        $this->service->request($url, 'GET', $options);\par
+    \}\par
+    public function post(string $url) \{\par
+        $this->service->request($url, 'GET');\par
+    \}\par
+\}\par
+\par
+\par
+\cf0\highlight0\f2\fs22\lang9\par
+}
+ 

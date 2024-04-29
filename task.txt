@@ -1,0 +1,220 @@
+Задачи на общий уровень владения языком
+	Фильтрация уникальных записей:
+
+php:
+
+function get_unique($arr): array {
+    $array_ids = [];
+    return array_filter($arr, function ($item) use (&$array_ids) {
+        if (!in_array($item['id'], $array_ids)) {
+            $array_ids[] = $item['id'];
+            return true;
+        }
+        return false;
+    });
+}
+print_r(get_unique($array));
+
+javascript:
+
+function get_unique(arr) {
+    let array_ids = []
+    return arr.filter(value => {
+        if (!array_ids.includes(value.id)) {
+            array_ids.push(value.id)
+            return value;
+        }
+    });
+}
+console.log(get_unique(array));
+
+python:
+
+unique_ids = []
+def get_unique(dictionary):
+    dict_id = dictionary.get("id")
+    if dict_id not in unique_ids:
+        unique_ids.append(dict_id)
+        return dictionary
+unique_dicts = list(filter(lambda x: x is not None, map(get_unique, array)))
+pprint(unique_dicts)
+
+
+
+
+	Сортировка многомерного массива:
+
+php:
+
+usort($array, function ($a, $b) {
+    return strtotime($a['create']) - strtotime($b['create']);
+});
+
+print_r($array);
+
+javascript:
+
+function sort_array(arr) {
+    return arr.sort((a, b) => {
+        return new Date(a.create) - new Date(b.create)
+    });
+}
+console.log(2, sort_array(array))
+
+python:
+
+sorted_dicts = sorted(array, key=lambda x: datetime.strptime(x.get("create"), "%d.%m.%Y"))
+pprint(sorted_dicts)
+
+	Фильтрация по условиям:
+php:
+function filter_arr($value) {
+    return $value['id'] > 2;
+}
+print_r(array_filter($array, 'filter_arr'))
+
+
+javascript:
+
+function filter_array(arr) {
+    return arr.filter(value => {
+        return value.id >2
+    })
+}
+console.log(filter_array(array))
+
+python:
+def filter_array(arr):
+    return list(filter(lambda value: value["id"] > 2, arr))
+print(filter_array(array))
+
+	Изменение cтруктуры массива:
+
+php:
+
+function change_dict($dictionary) {
+    $title =  $dictionary["title"];
+    $dict_id = $dictionary["id"];
+    return [$title => $dict_id];
+}
+
+$changed_dict  = array_map('change_dict', $array);
+
+print_r($changed_dict);
+
+javascript:
+
+function changeDict(dictionary) {
+  const title = dictionary["title"];
+  const dictId = dictionary["id"];
+  return { [title]: dictId };
+}
+
+const changedDict = array.map(changeDict);
+console.log(changedDict);
+
+python:
+
+def change_dict(dictionary):
+  title = dictionary.get("title")
+  dict_id = dictionary.get("id")
+  return {title: dict_id}
+changed_dict = list(map(change_dict, array))
+pprint(changed_dict)
+
+
+Задачи на уровень владения SQL
+SQL-запрос без использования JOIN и подзапросов:
+SELECT "department_id" FROM "evaluations"  WHERE gender = true AND value >5
+Оптимизация поиска по биографии:
+Мой подход будет основываться на использовании полнотекстового поиска.
+Сначала добавим столбец bio_tokens типа tsvector:
+
+ALTER TABLE evaluations ADD COLUMN bio_tokens TSVECTOR;
+
+После чего обновим данные на столбце bio_tokens:
+
+UPDATE evaluations SET bio_tokens = to_tsvector('english', bio);
+
+to_tsvector будет преобразовывать текст из столбца bio в формат TSVECTOR на английском языке. А благодаря формату tsvector у нас поиск будет происходить быстрее.
+После мы создаём индекс bio_idx на столбце bio_tokens с использованием GIN, которая будет эффективно поддерживать полнотекстовый поиск и обеспечивать быстрый доступ к данным при выполнении запросов:
+
+CREATE INDEX bio_idx ON evaluations USING GIN(bio_tokens); 
+
+После создания индекса мы будем выполнить полнотекстовый поиск, используя оператор @@ для сопоставления TSVECTOR-значений с TSQUERY, созданным с помощью функции to_tsquery('english', 'search_term'):
+
+SELECT * FROM evaluations WHERE bio_tokens @@ to_tsquery('english', 'search_term');
+
+Этот запрос возвращает все строки, где текст в столбце bio_tokens соответствует поисковому запросу 'search_term' на английском языке.
+
+Полный код:
+
+ALTER TABLE evaluations ADD COLUMN bio_tokens TSVECTOR;
+UPDATE evaluations SET bio_tokens = to_tsvector('english', bio);
+CREATE INDEX bio_idx ON evaluations USING GIN(bio_tokens);
+SELECT * FROM evaluations WHERE bio_tokens @@ to_tsquery('english', 'search_term');
+
+
+Архитектурные задачи
+⦁	Применение принципа открытости-закрытости:
+Принципа открытости-закрытости: класс должен быть открыт для расширения, но закрыт для модификации
+
+class SomeObject {
+    protected $name;
+    public function __construct(string $name) {
+        $this->name = $name;
+    }
+    public function getObjectName(): string
+    {
+        return $this->name;
+    }
+}
+
+class SomeObjectsHandler {
+    public function __construct() { }
+    public function handleObjects(array $objects): array {
+        $handlers = [];
+        foreach ($objects as $object) {
+            $handlers[] =  $object->getObjectName();
+        }
+        return $handlers;
+    }
+}
+
+$object_1 = new SomeObject('object_1');
+$object_2 = new SomeObject('object_2');
+
+
+$soh = new SomeObjectsHandler();
+$soh->handleObjects([$object_1, $object_2]);
+
+
+Устранение нарушений принципа инверсии зависимостей:
+
+Классы высшего уровня не должны зависеть от классов низкого уровня. Они должды зависеть от абстракция. А абстрации в свою очередь не должны зависеть от деталей. а детали должны зависить от абстрации
+
+
+interface XMLHTTPServiceInterface {
+    public function request() ;
+}
+class XMLHTTPRequestService implements XMLHTTPServiceInterface {
+    public function request(){ }
+}
+
+class XMLHttpService implements XMLHTTPServiceInterface {
+    public function request(){ }
+}
+class Http {
+    private $service;
+    public function __construct(XMLHTTPServiceInterface $xmlHttpService) {
+        $this->service = $xmlHttpService;
+    }
+    public function get(string $url, array $options) {
+        $this->service->request($url, 'GET', $options);
+    }
+    public function post(string $url) {
+        $this->service->request($url, 'GET');
+    }
+}
+
+
